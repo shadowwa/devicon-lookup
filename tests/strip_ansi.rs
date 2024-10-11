@@ -36,4 +36,15 @@ mod integration {
             .assert()
             .stdout(" \x1b[34mtest.rs\x1B[0m\n \x1b[31mtest.rb\x1b[0m\n");
     }
+
+    #[test]
+    fn calling_devicon_lookup_with_strip_color_ag_result() {
+        colored::control::set_override(true);
+
+        let mut cmd = Command::cargo_bin("devicon-lookup").unwrap();
+        cmd.arg("--color");
+        cmd.write_stdin("\x1b[34mtest.rs\x1B[0m\x1b[K".to_string())
+            .assert()
+            .stdout(" \x1b[34mtest.rs\x1B[0m\x1b[K\n");
+    }
 }

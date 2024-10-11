@@ -2,7 +2,7 @@ use crate::ParserResult;
 use regex::Regex;
 
 lazy_static! {
-    static ref ANSI_COLOR_REGEX: Regex = Regex::new(r"\x1b\[[0-9;]*m").unwrap();
+    static ref ANSI_COLOR_REGEX: Regex = Regex::new(r"\x1b\[([0-9;]*m|K)").unwrap();
 }
 
 pub fn strip_color(input: String) -> ParserResult {
