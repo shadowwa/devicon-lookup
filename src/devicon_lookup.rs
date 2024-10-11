@@ -196,7 +196,7 @@ impl ParsedLine {
             format!("{} {}", icon, path_name)
         };
 
-        if args.flag_substitute || args.flag_prefix.is_some() {
+        if args.flag_substitute || (args.flag_prefix.is_some() && !args.flag_color) {
             s = self.original.replace(self.file.full_path(), &s);
         }
 

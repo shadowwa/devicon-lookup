@@ -27,6 +27,19 @@ mod integration {
     }
 
     #[test]
+    fn calling_devicon_lookup_with_strip_color_single_file_and_prefix() {
+        colored::control::set_override(true);
+
+        let mut cmd = Command::cargo_bin("devicon-lookup").unwrap();
+        cmd.arg("--color")
+            .arg("--prefix")
+            .arg(":");
+        cmd.write_stdin("test.rs: someline of the file".blue().to_string())
+            .assert()
+            .stdout(" \x1b[34mtest.rs: someline of the file\x1B[0m\n");
+    }
+
+    #[test]
     fn calling_devicon_lookup_with_strip_color_multi_file() {
         colored::control::set_override(true);
 
